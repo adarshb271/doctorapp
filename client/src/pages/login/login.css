@@ -1,0 +1,28 @@
+* {
+  margin: 0px;
+  box-sizing: 0px;
+}
+.backgroundimage {
+  margin: 0px;
+  box-sizing: 0px;
+  background-image: url('bgimg.avif');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  margin: 40px auto;
+  gap: 20px;
+}
+.login Button {
+  background-color: blue;
+  gap: 20px;
+}
