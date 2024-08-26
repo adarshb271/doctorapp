@@ -7,43 +7,91 @@ module.exports.getUser = async (req, res) => {
   const response = await User.find();
   res.status(201).json(response);
 };
-
 module.exports.signupUser = async (req, res) => {
-  console.log(req.body);
-  const user = await User.findOne({ email: req.body.email });
-  if (user) {
-    return res.status(403).json({ message: 'Email already taken' });
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return res
+        .status(403)
+        .json({ message: 'Email already exited please take new one' });
+    }
+
+    const hpassword = await bcrypt.hash(req.body.password, 10);
+
+    const response = await User.create({
+      ...req.body,
+      password: hpassword,
+    });
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    let mailOptions = {
+      from: process.env.MAIL,
+      to: req.body.email,
+      subject: 'Login creds for DocBooking App',
+      text: `your emailID is :${req.body.email} and ur password is :${req.body.password}`,
+    };
+
+    transporter.sendMail(mailOptions, error => {
+      if (error) {
+        console.log('Email error:', error);
+        console.log(error);
+        return res.status(404).json({ ErrorOccurred: error });
+      } else {
+        return res.status(201).json({ message: 'Mail Send', value: response });
+      }
+    });
+  } catch (err) {
+    console.log('Signup error:', err);
+
+    res
+      .status(500)
+      .json({ message: 'Server error during signup', error: err.message });
   }
-
-  const hpassword = await bcrypt.hash(req.body.password, 2);
-
-  const response = await User.create({
-    ...req.body,
-    password: hpassword,
-  });
-
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
-
-  let mailOptions = {
-    from: process.env.MAIL,
-    to: req.body.email,
-    subject: 'Login creds for DocBooking App',
-    text: `your emailID is :${req.body.email} and ur password is :${req.body.password}`,
-  };
-
-  transporter.sendMail(mailOptions, error => {
-    if (error) {
-      return res.status(404).json({ ErrorOccurred: error });
-    } else
-      return res.status(201).json({ message: 'Mail Send', value: response });
-  });
 };
+
+// module.exports.signupUser = async (req, res) => {
+//   console.log(req.body);
+//   const user = await User.findOne({ email: req.body.email });
+//   if (user) {
+//     return res.status(403).json({ message: 'Email already taken' });
+//   }
+
+//   const hpassword = await bcrypt.hash(req.body.password, 2);
+
+//   const response = await User.create({
+//     ...req.body,
+//     password: hpassword,
+//   });
+
+//   let transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       user: process.env.MAIL,
+//       pass: process.env.PASSWORD,
+//     },
+//   });
+
+//   let mailOptions = {
+//     from: process.env.MAIL,
+//     to: req.body.email,
+//     subject: 'Login creds for DocBooking App',
+//     text: `your emailID is :${req.body.email} and ur password is :${req.body.password}`,
+//   };
+
+//   transporter.sendMail(mailOptions, error => {
+//     if (error) {
+//       return res.status(404).json({ ErrorOccurred: error });
+//     } else
+//       return res.status(201).json({ message: 'Mail Send', value: response });
+//   });
+// };
 module.exports.loginUser = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email: email });

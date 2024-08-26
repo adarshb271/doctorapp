@@ -4,9 +4,9 @@ import { useState } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import './login.css';
+import './userlogin.css';
 
-const DoctorLogin = () => {
+const UserLogin = () => {
   // const { role } = useParams();
 
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ const DoctorLogin = () => {
 
   const onLogin = async () => {
     try {
-      const response = await axios.post('/doctor/login', login);
+      const response = await axios.post('/user/login', login);
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.id);
 
-      navigate('/doctor/home');
+      navigate('/user/home');
     } catch (e) {
       console.log('Email id or Password is incorrect');
       console.log(e);
@@ -35,28 +35,33 @@ const DoctorLogin = () => {
   };
 
   return (
-    <div className="doctorbackgroundimage">
-      <ToastContainer />
+    <div className="userbackgroundimage">
+      {/* <ToastContainer /> */}
 
-      <div className="login">
-        <h1> Login</h1>
-        <div className="emailcontainer">
+      <div className="userlogin">
+        <h1> user Login</h1>
+        <div className="useremailcontainer">
           <label>Email</label>
           <Input
             onChange={e => onChange(e, 'email')}
             placeholder="please enter your email"
           />
         </div>
-        <div className="passwordcontainer">
+        <div className="userpasswordcontainer">
           <label> password</label>
           <Input type="password" onChange={e => onChange(e, 'password')} />
         </div>
-        <Button onClick={onLogin}>Login</Button>
+        <Button className="userbutton" onClick={onLogin}>
+          {' '}
+          Login
+        </Button>
+        <div className="userparagraph">
         <p>
           you don't have an account ? <Link to="/signup">Sign up</Link>
         </p>
+        </div>
       </div>
     </div>
   );
 };
-export default DoctorLogin;
+export default UserLogin;
