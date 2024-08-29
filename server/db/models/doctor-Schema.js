@@ -6,25 +6,20 @@ const doctorSchema = mongoose.Schema(
   {
     firstname: {
       type: String,
-      required: true,
-      trim: true,
+      // required: true,
+      // trim: true,
     },
     lastname: {
       type: String,
       // required: true,
-      trim: true,
+      // trim: true,
     },
-    // email: {
-    //   type: String,
-    //   // required: true,
-    //   trim: true,
-    //   unique: true,
-    // },
+
     email: {
       type: String,
       required: true,
-      trim: true,
-      unique: true,
+      // trim: true,
+      // unique: true,
     },
     password: {
       type: String,

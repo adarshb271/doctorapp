@@ -3,9 +3,10 @@ const genPassword = require('generate-password');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 module.exports.getDoctor = async (req, res) => {
-  const doctor = await Doctor.find();
+  const doctor = await Doctor.find().populate('department', 'name');
 
   res.status(200).json(doctor);
 };
@@ -136,4 +137,21 @@ module.exports.getDoctorById = async (req, res) => {
   const { id } = req.params;
   const doctor = await Doctor.findById(id);
   res.status(200).json(doctor);
+};
+
+module.exports.getDoctorByDepartmentId = async (req, res) => {
+  const { departmentId } = req.params;
+
+  try {
+    const doctor = await Doctor.find({
+      department: new mongoose.Types.ObjectId(departmentId),
+    }).populate('department', 'name');
+    console.log('Doctors found:', doctor);
+    res.status(200).json(doctor);
+  } catch (error) {
+    console.error('Error finding doctors by department:', error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching doctors.' });
+  }
 };

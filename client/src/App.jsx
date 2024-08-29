@@ -10,7 +10,7 @@ import UserLogin from './pages/userlogin';
 import Userhome from './pages/userhome';
 import Userslot from './pages/userslotbookingpage';
 // import UserSidebar from './pages/userhome';
-import DoctorSidebar from './pages/doctorsidebar';
+// import DoctorSidebar from './pages/doctorsidebar';
 import './App.css';
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/doctorlogin" element={<DoctorLogin />} />
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/user/home" element={<Userhome />} />
-        <Route path="/doctor/sidebar" element={<DoctorSidebar />} />
+        {/* <Route path="/doctor/sidebar" element={<DoctorSidebar />} /> */}
 
         <Route path="/signup" element={<Signup />} />
         <Route element={<PrivateRoute role="doctor" />}>

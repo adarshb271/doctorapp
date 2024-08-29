@@ -1,34 +1,31 @@
+// import React from 'react';
+// import Sidebar from '../../components/usersidebar';
+// // import Appointment '../userappointment';
+// import './userhome.css';
+
+// const Userhome = () => {
+//   <div className="container">
+//     <h1>hi</h1>
+//     <Sidebar />
+//     {/* <Appointment />  */}
+//   </div>;
+// };
+
+// export default Userhome;
+
+// App.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Sidebar from '../../components/usersidebar';
+import AppointmentForm from '../userappointment';
 import './userhome.css';
 
-const UserSidebar = () => {
+function Userhome() {
   return (
-    <div className="user-sidebar">
-      <div className="sidebar-header">
-        <h2>User Dashboard</h2>
-      </div>
-      <ul className="sidebar-menu">
-        <li>
-          <Link to="/user/profile">Profile</Link>
-        </li>
-        <li>
-          <Link to="/user/appointments">Appointments</Link>
-        </li>
-        <li>
-          <Link to="/user/medical-history">Medical History</Link>
-        </li>
-
-        <li>
-          <Link to="/user/settings">Settings</Link>
-        </li>
-
-        <li>
-          <Link to="/user/logout">Logout</Link>
-        </li>
-      </ul>
+    <div className="container">
+      <Sidebar />
+      <AppointmentForm />
     </div>
   );
-};
+}
 
-export default UserSidebar;
+export default Userhome;
