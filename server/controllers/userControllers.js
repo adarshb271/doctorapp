@@ -163,8 +163,22 @@ module.exports.resetPassword = async (req, res) => {
     res.status(401).json({ message: 'invalid Token' });
   }
 };
+
 module.exports.getUserById = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
-  res.status(200).json(user);
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    res.status(201).json(user);
+  } catch (e) {
+    return res.status(500).json(e);
+  }
 };
+// module.exports.getUserById = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const user = await User.findOneById({ id });
+//     res.status(200).json(user);
+//   } catch (e) {
+//     return res.status(500).json(e);
+//   }
+// };
