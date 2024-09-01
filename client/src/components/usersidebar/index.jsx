@@ -22,34 +22,32 @@ const Sidebar = () => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    navigate('/userlogin');
+    navigate('/user/login');
   };
   return (
-    <aside className="sidebar">
-      <div className="profile">
-        {/* <img src="profile.png" alt="Profile" /> */}
-        <p>{`${user.firstname}  ${user.lastname}`}</p>
-        {/* <p>{doctor.email}</p> */}
-        {/* <h2>Patient Name</h2> */}
+    <div className="usersidebar">
+      <div className="details">
+        <div className="usercontent">
+          <p>{`${user.firstname} ${user.lastname}`}</p>
+          <p>{user.email}</p>
+        </div>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#"> MyBooking</a>
-          </li>
-          {/* <li>
-            <a href="#">Add Slot</a>
-          </li> */}
-          <li onClick={logout} className="logout">
-            <a href="#">Logout</a>
-          </li>{' '}
-          {/* Add the class logout */}
-        </ul>
-      </nav>
-    </aside>
+
+      <div className="contents">
+        <p>
+          <NavLink className="link" to="/user/home">
+            Home
+          </NavLink>
+        </p>
+        <p>
+          <NavLink className="link" to="/user/mybooking">
+            My Bookings
+          </NavLink>
+        </p>
+        {/* <p>Add slot</p> */}
+        <p onClick={logout}>logout</p>
+      </div>
+    </div>
   );
 };
 

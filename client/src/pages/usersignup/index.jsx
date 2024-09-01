@@ -41,7 +41,7 @@ const UserSignup = () => {
       console.log('Attempting Signup...');
       const response = await axios.post('/user/signup', signup);
       console.log('Signup successful:', response.data);
-      navigate('/userlogin');
+      navigate('/user/login');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
       setError('Signup failed. Please check your details and try again.');

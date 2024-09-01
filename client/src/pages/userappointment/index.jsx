@@ -33,14 +33,6 @@ const AppointmentForm = () => {
     fetchDepartment();
   }, []);
 
-  // const fetchDoctor = async departmentId => {
-  //   try {
-  //     const response = await axios.get(`/doctor/doctors/${departmentId}`);
-  //     setDoctor(response.data);
-  //   } catch (err) {
-  //     console.error('Error fetching doctors:', err);
-  //   }
-  // };
   const fetchDoctors = async departmentId => {
     try {
       const response = await axios.get(
@@ -67,6 +59,7 @@ const AppointmentForm = () => {
     try {
       console.log('Attempting bookingSlot...');
       const response = await axios.post('/appointment', appointment);
+      localStorage.setItem(ID, response.data.id);
       console.log(' successful:', response.data);
       navigate('/userlogin');
     } catch (e) {

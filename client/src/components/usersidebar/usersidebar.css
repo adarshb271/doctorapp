@@ -1,45 +1,51 @@
-.sidebar {
-  width: 250px;
-  background-color: #5f9ad1;
+.usersidebar {
+  width: 20%;
+  height: 100vh;
+  background-color: rgb(75, 65, 219);
   padding: 20px;
 }
-
-.profile {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.profile img {
-  width: 100px;
+.usersidebar .details {
+  width: 90%;
+  background-color: rgb(127, 127, 224);
+  border-radius: 5px;
   height: 100px;
+  color: white;
+  padding: 10px;
+  display: flex;
+}
+.usersidebar .contents {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 30px;
+}
+.usersidebar .contents p {
+  padding: 10px;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-size: 10px;
+}
+.usersidebar .contents p:hover {
+  padding: 10px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+}
+.usersidebar .details .name {
+  font-size: 12px;
+  margin-top: 3px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.usersidebar .details img {
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
 }
-
-.profile h2 {
-  font-size: 20px;
-  color: #333;
-  margin-top: 10px;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin-bottom: 20px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  font-size: 18px;
-  color: #333;
-  transition: color 0.3s;
-}
-
-nav ul li a:hover {
-  color: #007bff;
-}
-.logout {
-  margin-top: 350px; /* Pushes Logout link to the bottom */
+.link {
+  text-decoration: inherit;
+  color: inherit;
 }

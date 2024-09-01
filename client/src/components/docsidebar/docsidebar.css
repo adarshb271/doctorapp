@@ -1,52 +1,51 @@
 .sidebar {
-    width: 15%;
-    height: 100vh;
-    background-color: rgb(71, 187, 241);
-    padding: 20px;
-  }
-  .sidebar .details {
-    width: 100%;
-    background-color: blue;
-    border-radius: 5px;
-    height: 100px;
-    color: white;
-    padding: 10px;
-    display: flex;
-  }
-  .sidebar .contents {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    gap: 30px;
-  }
-  .sidebar .contents p {
-    padding: 10px;
-    border-radius: 5px;
-    color: black;
-    cursor: pointer;
-    font-size: 10px;
-  }
-  .sidebar .contents p:hover {
-    padding: 10px;
-    background-color: red;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 10px;
-  }
-  .sidebar .details .name {
-    font-size: 12px;
-    margin-top: 3px;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .sidebar .details img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-  }
-  .link {
-    text-decoration: inherit;
-    color: inherit;
-  }
-  
+  width: 22%;
+  height: 100vh;
+  background-color: rgb(71, 187, 241);
+  padding: 20px;
+}
+.sidebar .details {
+  width: 95%;
+  background-color: blue;
+  border-radius: 5px;
+  height: 100px;
+  color: white;
+  padding: 10px;
+  display: flex;
+}
+.sidebar .contents {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 30px;
+}
+.sidebar .contents p {
+  padding: 10px;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-size: 10px;
+}
+.sidebar .contents p:hover {
+  padding: 10px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+}
+.sidebar .details .name {
+  font-size: 12px;
+  margin-top: 3px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sidebar .details img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.link {
+  text-decoration: inherit;
+  color: inherit;
+}

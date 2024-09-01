@@ -28,7 +28,8 @@ const Docsidebar = () => {
     <div className="sidebar">
       <div className="details">
         <div className="content">
-          <p>{`${doctor.firstname} ${doctor.lastname}`}</p>
+          <p>{`${doctor.firstname}
+          ${doctor.lastname}`}</p>
           <p>{doctor.email}</p>
         </div>
         <img src="{doctor.image}" alt="" />
