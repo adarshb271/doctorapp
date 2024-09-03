@@ -11,7 +11,7 @@ const Sidebar = () => {
   const getUserDetails = async () => {
     const userID = localStorage.getItem('id');
     const response = await axios.get(`/user/${userID}`);
-    console.log(response.data);
+    // console.log(response.data);
     setUser(response.data);
   };
 

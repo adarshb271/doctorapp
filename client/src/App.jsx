@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/privateRoutes';
 import DoctorLogin from './pages/login';
+import DoctorSignup from './pages/docsignup';
 import Signup from './pages/usersignup';
 import Doctorhome from './pages/doctorhomepage';
 import Doctorbooking from './pages/docbooking';
@@ -24,7 +25,7 @@ const App = () => {
         {/* <Route path="/user/mybooking" element={<Userslot />} /> */}
 
         {/* <Route path="/doctor/sidebar" element={<DoctorSidebar />} /> */}
-
+        <Route path="/docsignup" element={<DoctorSignup />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<PrivateRoute role="doctor" />}>
           <Route path="/doctor/home" element={<Doctorhome />} />

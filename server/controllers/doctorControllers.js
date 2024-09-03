@@ -143,15 +143,37 @@ module.exports.getDoctorByDepartmentId = async (req, res) => {
   const { departmentId } = req.params;
 
   try {
-    const doctor = await Doctor.find({
+    const doctors = await Doctor.find({
       department: new mongoose.Types.ObjectId(departmentId),
     }).populate('department', 'name');
-    console.log('Doctors found:', doctor);
-    res.status(200).json(doctor);
+
+    if (doctors.length === 0) {
+      return res.status(404).json({ message: 'No doctors found' });
+    }
+
+    res.status(200).json(doctors);
   } catch (error) {
     console.error('Error finding doctors by department:', error);
     res
       .status(500)
       .json({ error: 'An error occurred while fetching doctors.' });
   }
+  // try {
+  //   const doctor = await Doctor.find({
+  //     department: new mongoose.Types.ObjectId(departmentId),
+  //     // department: new mongoose.Types.ObjectId(departmentId),
+  //   }).populate('department', 'name');
+  //   // console.log('Doctors found:', doctor);
+  //   res.status(200).json(doctor);
+  // } catch (error) {
+  //   console.error('Error finding doctors by department:', error);
+  //   res
+  //     .status(500)
+  //     .json({ error: 'An error occurred while fetching doctors.' });
+  // }
+};
+module.exports.getDoctorById = async (req, res) => {
+  const { id } = req.params;
+  const user = await Doctor.findById(id);
+  res.status(200).json(user);
 };

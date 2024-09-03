@@ -1,43 +1,55 @@
 import './userappointment.css';
 import { useState, useEffect } from 'react';
 import axios from '../../utils/axios';
-
-// // AppointmentForm.js
-// import React, { useState } from 'react';
+// import axios from 'axios';
 
 const AppointmentForm = () => {
-  const [appointment, setappointment] = useState({
+  const [appointment, setAppointment] = useState({
     department: '',
     doctor: '',
     date: '',
     time: '',
-    firtname: '',
-    mobileNumber: '',
+    fullname: '',
+    mobilenumber: '',
     email: '',
-    reason: '',
+    message: '',
   });
 
-  const [department, setDepartment] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [userId, setUserId] = useState(null);
 
-  const fetchDepartment = async () => {
+  useEffect(() => {
+    // Fetch user ID from localStorage
+    const id = localStorage.getItem('id');
+    setUserId(id);
+  }, []);
+
+  const fetchDepartments = async () => {
     try {
       const response = await axios.get('/department');
-      setDepartment(response.data);
+      // const response = await axios.get('http://localhost:8888/department');
+
+      // const response = await axios.get('');
+
+      setDepartments(response.data);
     } catch (err) {
-      console.log('Error fetching department:', err.message);
+      console.log('Error fetching departments:', err.message);
     }
   };
 
   useEffect(() => {
-    fetchDepartment();
+    fetchDepartments();
   }, []);
 
   const fetchDoctors = async departmentId => {
     try {
       const response = await axios.get(
         `/doctor/doctors/department/${departmentId}`
+        // const response = await axios.get(
+        //   `http://localhost:8888/doctor/doctors/department/${departmentId}`
       );
+
       setDoctors(response.data);
     } catch (err) {
       console.error('Error fetching doctors:', err);
@@ -45,31 +57,99 @@ const AppointmentForm = () => {
   };
 
   const onChange = (e, key) => {
-    setappointment({ ...appointment, [key]: e.target.value });
+    setAppointment({ ...appointment, [key]: e.target.value });
 
     if (key === 'department') {
       fetchDoctors(e.target.value);
     }
   };
-  const OnChange = (e, key) => {
-    setappointment({ ...appointment, [key]: e.target.value });
-  };
 
   const onBtnClick = async () => {
     try {
-      console.log('Attempting bookingSlot...');
-      const response = await axios.post('/appointment', appointment);
-      localStorage.setItem(ID, response.data.id);
-      console.log(' successful:', response.data);
-      navigate('/userlogin');
+      const response = await axios.post('/appointment/book/appointment', {
+        ...appointment,
+        user: userId,
+      });
+      console.log({ responses: response.data });
+
+      toast.success('Appointment booked successfully');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
-      setError('Signup failed. Please check your details and try again.');
+      toast.error('Appointment booking failed');
     }
-    // e.preventDefault();
-    // // Handle form submission
-    // console.log(formData);
   };
+
+  // const [appointment, setappointment] = useState({
+  //   department: '',
+  //   doctor: '',
+  //   date: '',
+  //   time: '',
+  //   fullname: '',
+  //   mobilenumber: '',
+  //   email: '',
+  //   reason: '',
+  // });
+
+  // const [department, setDepartment] = useState([]);
+  // const [doctors, setDoctors] = useState([]);
+  // const [userId, setUserId] = useState(null);
+
+  // useEffect(() => {
+  //   // Fetch user ID from localStorage
+  //   const id = localStorage.getItem('id');
+  //   setUserId(id);
+  // }, []);
+
+  // const fetchDepartment = async () => {
+  //   try {
+  //     const response = await axios.get('/department');
+  //     setDepartment(response.data);
+  //   } catch (err) {
+  //     console.log('Error fetching department:', err.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchDepartment();
+  // }, []);
+
+  // const fetchDoctors = async departmentId => {
+  //   try {
+  //     const response = await axios.get(
+  //       `/doctor/doctors/department/${departmentId}`
+  //     );
+  //     setDoctors(response.data);
+  //   } catch (err) {
+  //     console.error('Error fetching doctors:', err);
+  //   }
+  // };
+
+  // const onChange = (e, key) => {
+  //   setappointment({ ...appointment, [key]: e.target.value });
+
+  //   if (key === 'department') {
+  //     fetchDoctors(e.target.value);
+  //   }
+  // };
+
+  // const onBtnClick = async () => {
+  //   try {
+  //     const response = await axios.post('/appointment/book/appointment', {
+  //       ...appointment,
+  //       user: userId,
+  //     });
+  //     console.log('rtdtr');
+  //     console.log({ responses: response.data });
+  //     console.log('added');
+
+  //     // toast.success('Appointment booked successfully');
+  //   } catch (e) {
+  //     // Safely handle the case where `e.response` might be undefined
+  //     const errorMessage = e.response ? e.response.data : e.message;
+  //     console.log('Appointment booking failed:', errorMessage);
+  //     // toast.error('Appointment booking failed');
+  //   }
+  // };
 
   return (
     <div className="booking-slot">
@@ -87,7 +167,7 @@ const AppointmentForm = () => {
             >
               <option value="">Select Your Department</option>
 
-              {department.map(department => (
+              {departments.map(department => (
                 <option key={department._id} value={department._id}>
                   {department.name}
                 </option>
@@ -96,15 +176,25 @@ const AppointmentForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Select Doctor</label>
             <select id="doctor" required onChange={e => onChange(e, 'doctor')}>
-              <option>Select Your Doctor</option>
+              <option value="">Select Your Doctor</option>
               {doctors.map(doctor => (
-                <option key={doctor._id}>
+                <option key={doctor._id} value={doctor._id}>
                   Dr. {doctor.firstname} {doctor.lastname}
                 </option>
               ))}
             </select>
+
+            {/* <label>Select Doctor</label>
+            <select id="doctor" required onChange={e => onChange(e, 'doctor')}>
+              <option>Select Your Doctor</option>
+              {doctors.map(doctor => (
+                <option key={doctor._id} value={doctor._id}>
+                  Dr. {doctor.firstname} {doctor.lastname}
+                </option>
+                
+              ))} */}
+            {/* </select> */}
           </div>
 
           <div className="form-group">
@@ -178,107 +268,6 @@ const AppointmentForm = () => {
         </form>
       </div>
     </div>
-    // <div className="appointment-form-container">
-    //   <h2>Book Your Appointment</h2>
-    //   <p>Schedule Your Consultation with Ease</p>
-    //   <form onSubmit={handleSubmit}>
-    //     <div className="form-group">
-    //       <label htmlFor="department">Select Department</label>
-    //       <select
-    //         id="department"
-    //          value={formData.department}
-    //         // onChange={OnChange}
-    //         // required
-    //       >
-    //         <option value="" disabled>
-    //           Select Your Department
-    //         </option>
-    //         <option value="cardiology">Cardiology</option>
-    //         <option value="neurology">Neurology</option>
-    //         <option value="orthopedics">Orthopedics</option>
-    //       </select>
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="doctor">Select Doctor</label>
-    //       <select
-    //         id="doctor"
-    //         // value={formData.doctor}
-    //         // onChange={OnChange}
-    //          required
-    //       >
-    //         <option value="" disabled>
-    //           Select Doctor
-    //         </option>
-    //         <option value="dr-smith">Dr. Smith</option>
-    //         <option value="dr-jones">Dr. Jones</option>
-    //         <option value="dr-brown">Dr. Brown</option>
-    //       </select>
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="date">Select Date</label>
-    //       <input
-    //         type="date"
-    //         id="date"
-    //         // value={formData.date}
-    //         // onChange={OnChange}
-    //         required
-    //       />
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="time">Select Time</label>
-    //       <input
-    //         type="time"
-    //         id="time"
-    //         // value={formData.time}
-    //         // onChange={OnChange}
-    //         required
-    //       />
-    //       <small>(Visiting hours are 8am to 8pm)</small>
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="fullName">Full Name*</label>
-    //       <input
-    //         type="text"
-    //         id="fullName"
-    //         placeholder="Full Name"
-    //         value={formData.fullName}
-    //         onChange={OnChange}
-    //         required
-    //       />
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="mobileNumber">Mobile Number*</label>
-    //       <input
-    //         type="tel"
-    //         id="mobileNumber"
-    //         placeholder="Mobile Number"
-    //         value={formData.mobileNumber}
-    //         onChange={OnChange}
-    //         required
-    //       />
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="email">Email (optional)</label>
-    //       <input
-    //         type="email"
-    //         id="email"
-    //         placeholder="Email (optional)"
-    //         value={formData.email}
-    //         onChange={OnChange}
-    //       />
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="reason">Reason for Appointment</label>
-    //       <textarea
-    //         id="reason"
-    //         placeholder="Reason for Appointment"
-    //         value={formData.reason}
-    //         onChange={OnChange}
-    //       ></textarea>
-    //     </div>
-    //     <button type="submit">Submit</button>
-    //   </form>
-    // </div>
   );
 };
 

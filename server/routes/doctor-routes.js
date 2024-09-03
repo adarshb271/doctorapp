@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', controller.getDoctor);
 router.post('/signup', upload.single('image'), controller.signupDoctor);
+router.get('/:id', controller.getDoctorById);
 
 router.post('/login', controller.loginDoctor);
 router.post('/forgotpassword', controller.forgotPassword);

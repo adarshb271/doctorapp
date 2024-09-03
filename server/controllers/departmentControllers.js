@@ -6,11 +6,21 @@ dotenv.config({ path: './.env' });
 
 //get dep from api
 
-module.exports.getDepartment = async (req, res) => {
-  const department = await Department.find();
+// module.exports.getDepartment = async (req, res) => {
+//   const department = await Department.find();
 
-  res.status(200).json(department);
+//   res.status(200).json(department);
+// };
+module.exports.getDepartment = async (req, res) => {
+  try {
+    const departments = await Department.find();
+    res.status(200).json(departments);
+  } catch (error) {
+    console.error('Error fetching departments:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
+
 module.exports.postDepartment = async (req, res) => {
   const department = await Department.create({
     name: req.body.name,
@@ -24,4 +34,3 @@ module.exports.getDepartmentById = async (req, res) => {
   const department = await Department.findById(id);
   res.status(201).json(department);
 };
-

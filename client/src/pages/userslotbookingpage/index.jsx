@@ -28,24 +28,29 @@ const Userslot = () => {
           {appointments.map(appointment => (
             <div key={appointment._id} className="booking-card">
               <div className="booking-header">
-                <h3>{appointment.doctor}</h3>
+                {/* <h3>{appointment.doctor?.name || 'No Doctor'}</h3> */}
+                <h3>
+                  {' '}
+                  {appointment.doctor.firstname} {appointment.doctor.lastname}
+                </h3>
                 <span className="status confirmed">Confirmed</span>
               </div>
               <div className="booking-details">
                 <p>
                   <strong>Date:</strong>{' '}
-                  {new Date(appointment.date).toLocaleDateString()}
+                  {new Date(appointment.date).toLocaleDateString() || 'No Date'}
                 </p>
                 <p>
-                  <strong>Time:</strong> {appointment.time}
+                  <strong>Time:</strong> {appointment.time || 'No Time'}
                 </p>
                 <p>
-                  <strong>Specialization:</strong> {appointment.department}
+                  <strong>Specialization:</strong>{' '}
+                  {appointment.department?.name || 'N/A'}
                 </p>
               </div>
               <div className="booking-footer">
                 <button className="reschedule-btn">Reschedule</button>
-                <button className="cancel-btn">Cancel</button>
+                <button className="cancel-btn">Delete</button>
               </div>
             </div>
           ))}
