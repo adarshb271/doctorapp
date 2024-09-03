@@ -5,20 +5,32 @@ import './userslot.css';
 
 const Userslot = () => {
   const [appointments, setAppointments] = useState([]);
+  const userId = localStorage.getItem('id');
 
   const getAppointmentDetails = async () => {
     try {
-      const response = await axios.get('/appointment');
-      setAppointments(response.data);
-      console.log({ message: response.data });
+      if (!userId) {
+        console.error('User ID is not available');
+        return;
+      }
+
+      const response = await axios.get(`/appointment/api/${userId}`);
+      setAppointments(response.data.appointments);
     } catch (error) {
-      console.log({ getAppointment: error.message });
+      console.error('Error fetching appointments:', error.message);
     }
+    // try {
+    //   const response = await axios.get('/appointment');
+    //   setAppointments(response.data);
+    //   console.log({ message: response.data });
+    // } catch (error) {
+    //   console.log({ getAppointment: error.message });
+    // }
   };
 
   useEffect(() => {
     getAppointmentDetails();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="mybooking">
