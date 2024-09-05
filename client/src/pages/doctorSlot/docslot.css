@@ -1,0 +1,34 @@
+.doctor-slots {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appointment-card {
+  background-color: #ecf0f1;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  width: 80%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card h3 {
+  margin: 0;
+  color: #3498db;
+}
+
+.appointment-card p {
+  margin: 5px 0;
+  color: #34495e;
+}

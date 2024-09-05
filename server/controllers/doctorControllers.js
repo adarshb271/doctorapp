@@ -87,7 +87,7 @@ module.exports.forgotPassword = async (req, res) => {
   }
 
   const resetToken = jwt.sign({ email: email }, process.env.DOCTORKEY, {
-    expiresIn: 700,
+    expiresIn: 3000,
   });
 
   let transporter = nodemailer.createTransport({
@@ -112,27 +112,61 @@ module.exports.forgotPassword = async (req, res) => {
     } else return res.status(201).json({ message: 'Mail Send' });
   });
 };
-module.exports.resetPassword = async (req, res) => {
+module.exports.resetpassword = async (req, res) => {
   const { token } = req.params;
   const { password, confirmpassword } = req.body;
 
   try {
+    // Verify the token
     const isValid = jwt.verify(token, process.env.DOCTORKEY);
-    if (password != confirmpassword) {
-      return res.status(201).json({ message: 'Passwords doesnt match' });
+
+    // Check if passwords match
+    if (password !== confirmpassword) {
+      return res.status(400).json({ message: 'Passwords do not match' });
     }
 
     const email = isValid.email;
-    const hashedpassword = await bcrypt.hash(password, 2);
+
+    // Hash the new password
+    const hashedpassword = await bcrypt.hash(password, 10); // Use 10 rounds for better security
+
+    // Find the doctor and update the password
     const doctor = await Doctor.findOneAndUpdate(
       { email: email },
       { password: hashedpassword }
     );
-    res.status(201).json({ message: 'password reset suceesfully' });
+
+    if (!doctor) {
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+
+    res.status(200).json({ message: 'Password reset successfully' });
   } catch (e) {
-    res.status(401).json({ message: 'invalid Token' });
+    res.status(401).json({ message: 'Invalid token' });
   }
 };
+
+// module.exports.resetPassword = async (req, res) => {
+//   const { token } = req.params;
+//   const { password, confirmpassword } = req.body;
+
+//   try {
+//     const isValid = jwt.verify(token, process.env.DOCTORKEY);
+//     if (password != confirmpassword) {
+//       return res.status(201).json({ message: 'Passwords doesnt match' });
+//     }
+
+//     const email = isValid.email;
+//     const hashedpassword = await bcrypt.hash(password, 2);
+//     const doctor = await Doctor.findOneAndUpdate(
+//       { email: email },
+//       { password: hashedpassword }
+//     );
+//     res.status(201).json({ message: 'password reset suceesfully' });
+//   } catch (e) {
+//     res.status(401).json({ message: 'invalid Token' });
+//   }
+// };
 module.exports.getDoctorById = async (req, res) => {
   const { id } = req.params;
   const doctor = await Doctor.findById(id);

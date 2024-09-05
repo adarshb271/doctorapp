@@ -9,7 +9,7 @@ router.get('/:id', controller.getDoctorById);
 
 router.post('/login', controller.loginDoctor);
 router.post('/forgotpassword', controller.forgotPassword);
-router.post('/reset/:token', controller.resetPassword);
+router.post('/reset/:token', controller.resetpassword);
 router.get('/:id', controller.getDoctorById);
 router.get(
   '/doctors/department/:departmentId',

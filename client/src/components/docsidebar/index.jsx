@@ -7,15 +7,18 @@ import { Await } from 'react-router-dom';
 const Docsidebar = () => {
   const navigate = useNavigate();
   const [doctor, setDoctor] = useState({});
-  const getDoctorDetails = async () => {
+
+  const getDoctorDetail = async () => {
     const doctorID = localStorage.getItem('id');
     const response = await axios.get(`/doctor/${doctorID}`);
+
     console.log(response.data);
     setDoctor(response.data);
   };
 
   useEffect(() => {
-    getDoctorDetails();
+    getDoctorDetail();
+    console.log('Doctor Details:', doctor);
   }, []);
 
   const logout = () => {
@@ -25,30 +28,55 @@ const Docsidebar = () => {
   };
 
   return (
-    <div className="sidebar">
-      <div className="details">
-        <div className="content">
-          <p>{`${doctor.firstname}
-          ${doctor.lastname}`}</p>
-          <p>{doctor.email}</p>
-        </div>
-        <img src="{doctor.image}" alt="" />
-      </div>
+    <div className="doctor-sidebar">
+      <br />
+      <div className="img-div">
+        {/* <img
+          className="doctor-img"
+          src={doctor.image || 'path/to/default/image.jpg'}
+          alt="Doctor"
+          onError={e => {
+            e.target.src = 'path/to/default/image.jpg';
+          }}
+        /> */}
 
-      <div className="contents">
-        <p>
-          <NavLink className="link" to="/doctor/home">
-            Home
-          </NavLink>
-        </p>
-        <p>
-          <NavLink className="link" to="/doctor/bookings">
-            Booking
-          </NavLink>
-        </p>
-        <p>Add slot</p>
-        <p onClick={logout}>logout</p>
+        <img className="doctor-img" src={doctor.image} alt="Doctor" />
       </div>
+      <br />
+      <h2 style={{ textAlign: 'center' }}></h2>
+      <p className="doctor-name">{`${doctor.firstname} ${doctor.lastname}`}</p>
+      <p className="doctor-email">{doctor.email}</p>
+      <br />
+      <p
+        onClick={() => {
+          navigate('/doctor/home');
+        }}
+      >
+        Home
+      </p>
+      <p
+        onClick={() => {
+          navigate('/doctor/my-appointments');
+        }}
+      >
+        My Appointments
+      </p>
+      <p
+        onClick={() => {
+          navigate(`/doctor/add-slots`);
+        }}
+      >
+        Add Slots
+      </p>
+      <p
+        onClick={() => {
+          navigate('/doctor/edit-profile');
+        }}
+      >
+        Edit Profile
+      </p>
+      <p onClick={logout}>Log Out</p>
+      {/* <button onClick={onBtnDownloadPdf}>Download PDF</button> */}
     </div>
   );
 };

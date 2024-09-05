@@ -5,8 +5,9 @@ import DoctorSignup from './pages/docsignup';
 import Signup from './pages/usersignup';
 import Doctorhome from './pages/doctorhomepage';
 import Doctorbooking from './pages/docbooking';
-import Doctorslot from './pages/docslot';
-
+import Doctorslot from './pages/doctorSlot';
+import DocForgotPassword from './pages/forgotpassword';
+import DocResetPassword from './pages/resetpassword';
 import UserLogin from './pages/userlogin';
 import Userhome from './pages/userhome';
 import Userslot from './pages/userslotbookingpage';
@@ -20,12 +21,15 @@ const App = () => {
       <Routes>
         <Route path="/doctor/login" element={<DoctorLogin />} />
         <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/doctor/forgotpassword" element={<DocForgotPassword />} />
+        <Route path="/doctor/reset/:token" element={<DocResetPassword />} />
+
         {/* <Route path="/user/home" element={<Userhome />} /> */}
 
         {/* <Route path="/user/mybooking" element={<Userslot />} /> */}
 
         {/* <Route path="/doctor/sidebar" element={<DoctorSidebar />} /> */}
-        <Route path="/docsignup" element={<DoctorSignup />} />
+        <Route path="/doctor/signup" element={<DoctorSignup />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<PrivateRoute role="doctor" />}>
           <Route path="/doctor/home" element={<Doctorhome />} />
