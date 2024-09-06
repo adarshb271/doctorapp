@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.admincontainer {
+  background-color: rgb(219, 252, 252);
+  display: flex;
+  height: 200vh;
+}

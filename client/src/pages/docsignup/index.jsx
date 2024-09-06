@@ -48,7 +48,8 @@ const DocSignup = () => {
         },
       });
       console.log('Signup successful:', response.data);
-      toast.success('Signup Successful');
+
+      // toast.success('Signup Successful');
     } catch (e) {
       console.log('Signup failed:', e.response ? e.response.data : e.message);
       setError('Signup failed. Please check your details and try again.');

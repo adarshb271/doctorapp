@@ -1,5 +1,7 @@
 // App.js
 import React from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
+
 import './allhome.css';
 
 // Header Component
@@ -10,10 +12,25 @@ const Header = () => {
         <div className="logo">My Hospital</div>
         <ul className="nav-links">
           <li>
-            <a href="#services">Services</a>
+            <p>
+              <NavLink className="link" to="/admin/login">
+                Admin
+              </NavLink>
+            </p>
           </li>
           <li>
-            <a href="#departments">Departments</a>
+            <p>
+              <NavLink className="link" to="/doctor/login">
+                Doctor
+              </NavLink>
+            </p>
+          </li>
+          <li>
+            <p>
+              <NavLink className="link" to="/user/login">
+                user
+              </NavLink>
+            </p>
           </li>
           <li>
             <a href="#contact">Contact</a>

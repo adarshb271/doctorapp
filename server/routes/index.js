@@ -5,11 +5,13 @@ const hospitalRoutes = require('./hospital-routes');
 const userRoutes = require('./a-user-routes');
 const doctorRoutes = require('./doctor-routes');
 const appointmentRoutes = require('./appointment-routes');
+const adminRoutes = require('./admin-routes');
 const router = express.Router();
 router.use('/appointment', appointmentRoutes);
 router.use('/department', departmentRoutes);
 router.use('/hospital', hospitalRoutes);
 router.use('/user', userRoutes);
 router.use('/doctor', doctorRoutes);
+router.use('/admin', adminRoutes);
 
 module.exports = router;

@@ -14,6 +14,8 @@ import UserResetPassword from './pages/userresetpassword.css';
 import UserLogin from './pages/userlogin';
 import Userhome from './pages/userhome';
 import Userslot from './pages/userslotbookingpage';
+import Adminhome from './pages/admin';
+import AdminLogin from './pages/adminlogin';
 // import UserSidebar from './pages/userhome';
 // import DoctorSidebar from './pages/doctorsidebar';
 import './App.css';
@@ -22,6 +24,9 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/admin/home" element={<Adminhome />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
         <Route path="/allhome" element={<AllHome />} />
 
         <Route path="/doctor/login" element={<DoctorLogin />} />
@@ -40,10 +45,10 @@ const App = () => {
           <Route path="/doctor/booking" element={<Doctorbooking />} />
           <Route path="/doctor/slot" element={<Doctorslot />} />
         </Route>
-        <Route element={<PrivateRoute role="user" />}>
-          <Route path="/user/home" element={<Userhome />} />
-          <Route path="/user/mybooking" element={<Userslot />} />
-        </Route>
+        {/* <Route element={<PrivateRoute role="user" />}> */}
+        <Route path="/user/home" element={<Userhome />} />
+        <Route path="/user/mybooking" element={<Userslot />} />
+        {/* </Route> */}
       </Routes>
     </>
   );

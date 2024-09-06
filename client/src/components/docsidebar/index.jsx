@@ -40,7 +40,7 @@ const Docsidebar = () => {
           }}
         /> */}
 
-        <img className="doctor-img" src={doctor.image} alt="Doctor" />
+        {/* <img className="doctor-img" src={doctor.image} alt="Doctor" /> */}
       </div>
       <br />
       <h2 style={{ textAlign: 'center' }}></h2>
