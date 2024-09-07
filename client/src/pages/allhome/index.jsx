@@ -4,7 +4,6 @@ import { useNavigate, NavLink } from 'react-router-dom';
 
 import './allhome.css';
 
-// Header Component
 const Header = () => {
   return (
     <header>
@@ -32,16 +31,12 @@ const Header = () => {
               </NavLink>
             </p>
           </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
         </ul>
       </nav>
     </header>
   );
 };
 
-// Hero Section Component
 const HeroSection = () => {
   return (
     <section className="hero-section">
@@ -54,7 +49,6 @@ const HeroSection = () => {
   );
 };
 
-// Services Component
 const Services = () => {
   const servicesData = [
     {
@@ -81,7 +75,6 @@ const Services = () => {
   );
 };
 
-// Footer Component
 const Footer = () => {
   return (
     <footer id="contact" className="footer-section">
@@ -92,15 +85,12 @@ const Footer = () => {
         <p>Phone: +123-456-7890</p>
       </div>
       <div className="footer-bottom">
-        <p>
-          &copy; {new Date().getFullYear()} My Hospital. All rights reserved.
-        </p>
+        <p>My Hospital. All rights reserved.</p>
       </div>
     </footer>
   );
 };
 
-// App Component
 function App() {
   return (
     <div className="App">

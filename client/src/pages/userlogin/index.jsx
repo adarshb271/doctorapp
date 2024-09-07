@@ -56,9 +56,13 @@ const UserLogin = () => {
           Login
         </Button>
         <div className="userparagraph">
-        <p>
-          you don't have an account ? <Link to="/signup">Sign up</Link>
-        </p>
+          <p>
+            you don't have an account ? <Link to="/signup">Sign up</Link>
+          </p>
+          <br />
+          <p>
+            <Link to="/user/forgotpassword"> forgotpassword ?</Link>
+          </p>
         </div>
       </div>
     </div>

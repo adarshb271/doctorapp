@@ -1,6 +1,5 @@
-// Navbar.jsx
 import React from 'react';
-import './adminnavbar.css'; // Add your styles here
+import './adminnavbar.css';
 
 const Navbar = () => {
   return (
@@ -10,14 +9,14 @@ const Navbar = () => {
       </div>
       <ul className="navbar-menu">
         <li>
-          <a href="#dashboard">Dashboard</a>
+          <a href="">Dashboard</a>
         </li>
         <li>
-          <a href="#users">Home</a>
+          <a href="#">Home</a>
         </li>
         {/*         
         <li>
-          <a href="#appointments">Manage Appointments</a>
+          <a href="#">Manage Appointments</a>
         </li> */}
         {/* <li>
           <a href="#settings">Settings</a>
